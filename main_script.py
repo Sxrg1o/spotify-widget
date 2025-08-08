@@ -129,10 +129,11 @@ class SpotifyWidget(Gtk.Window):
 
         self.update_ui()
         GLib.timeout_add_seconds(1, self.update_ui)
+        GLib.timeout_add_seconds(10, Gtk.main_quit)
 
     def update_ui(self):
         title, artist, position, duration = get_current_song_info()
-        self.song_label.set_markup(f"<b>{GLib.markup_escape_text(title)}</b>\n<span size='xx-small'>{GLib.markup_escape_text(artist)}</span>")
+        self.song_label.set_markup(f"<small><b>{GLib.markup_escape_text(title)}</b></small>\n<span size='xx-small'>{GLib.markup_escape_text(artist)}</span>")
         
         if not self.is_seeking:
             self.progress_scale.get_adjustment().set_upper(duration)
